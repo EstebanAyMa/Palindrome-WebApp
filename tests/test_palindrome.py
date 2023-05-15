@@ -1,3 +1,6 @@
+from palindrome_estebanayalam.phrase import Phrase
+
+
 def test_palindrome_page(client):
     response = client.get("/palindrome")
     assert form_tag() in response.text
@@ -14,6 +17,14 @@ def test_palindrome_submission(client):
     phrase = "Sator Arepo tenet opera rotas."
     response = client.post("/check", data={"phrase": phrase})
     assert f'<p>"{phrase}" is a palindrome!</p>' in response.text
+
+
+def test_empty_string_non_palindrome():
+    assert not Phrase("").ispalindrome()
+
+
+def test_whitespace_non_palindrome():
+    assert not Phrase("     \t\n\n  ").ispalindrome()
 
 
 def form_tag():
